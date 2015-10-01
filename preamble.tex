@@ -1,0 +1,281 @@
+% \def\pgfsysdriver{pgfsys-dvi.def}
+\usepackage{pstricks-add}
+\usepackage{amsfonts,amssymb,amsmath,amsthm,latexsym,algorithmic,babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage{xstring}
+\usepackage{lmodern}
+\usepackage{needspace}
+\usepackage{venndiagram}
+\usepackage{numprint}
+\usepackage{enumitem}
+\usepackage{pgf,tikz,comment,xfrac}
+\newtheorem*{correction}{Correction}
+\newtheorem*{example}{Exemple}
+\usepackage{systeme}
+\usepackage{siunitx}
+% this is for backward compat with my own systeme environment.
+\let\ubpsysteme\systeme
+\renewenvironment{systeme}{\left\{\begin{array}{r@{\,=\,}l}}{\end{array}\right.}
+\newenvironment{inlinesysteme}{$\displaystyle\systeme}{\endsysteme$}
+\newcommand{\requires}[1]{}%{\message{^^JREQUIRES: #1^^J}}
+\usetikzlibrary{snakes,arrows}
+\frenchbsetup{IndentFirst=false,ItemLabels=\textbullet} % must be removed if french is not used.
+
+\usepackage[babel=true,kerning=true]{microtype}
+% pour régler un conflit entre babel et tikz
+
+
+\usepackage{graphicx}
+\graphicspath{{graphics/}}
+\makeatletter
+\def\input@path{{graphics/}}
+\makeatother
+
+%\textheight253mm\voffset-24mm\textwidth170mm\hoffset-9mm
+\title{}
+\author{}
+\date{}
+\pagestyle{headings}
+%%%%%%%%%%%%%%%%%%%% MACROS
+\long\global\def\C#1\F{{}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\N}{\mathbb N{}}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R{}}
+\newcommand{\Z}{\mathbb Z{}}
+
+\newcommand{\CCC}{\mathcal{C}{}}
+
+%%%%%%%%%%%%% Notation française pour les fonction trig. et hyperb. et les fonctions inverses. J. Leroy, janvier 1993.
+
+\DeclareMathOperator{\arccosec}{arccos\acute{e}c}
+\DeclareMathOperator{\rot}{rot}
+\def\arccoseca{\arccosec}
+\DeclareMathOperator{\arccotg}{arccotg}
+\DeclareMathOperator{\arcsec}{arcs\acute{e}c}
+\def\arcseca{\arcsec}
+
+\def\arctg{\arctan}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\argch}{argch}
+\DeclareMathOperator{\argcosecah}{argcos\acute{e}ch}
+\DeclareMathOperator{\argcoth}{argcoth}
+\DeclareMathOperator{\argsecah}{args\acute{e}ch}
+\DeclareMathOperator{\argsh}{argsh}
+\DeclareMathOperator{\argth}{argth}
+
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\coseca}{cos\acute{e}c}
+\DeclareMathOperator{\cosecah}{cos\acute{e}ch}
+\DeclareMathOperator{\cotg}{cotg}
+%\DeclareMathOperator{\coth}{coth}
+\DeclareMathOperator{\seca}{s\acute{e}c}
+\DeclareMathOperator{\secah}{s\acute{e}ch}
+\DeclareMathOperator{\sh}{sh}
+\DeclareMathOperator{\tg}{tg}
+
+%%%%%%%%%%% jpd sept. 2007
+
+\def\CCC{\mathcal{C}{}}
+%\newcommand{\arccosec}{\mathrm{arccos\acute ec}}
+%\newcommand{\arccoseca}{\arccosec}
+%\newcommand{\arccotg}{\mathrm{arccotg}}
+%\newcommand{\arcsec}{\mathrm{arcs\acute ec}}
+%\newcommand{\arcseca}{\arcsec}
+%\newcommand{\arctg}{\mathrm{arctg}}
+
+%\newcommand{\argch}{\mathrm{argch}}
+%\newcommand{\argcoth}{\mathrm{argcoth}}
+%\newcommand{\argsh}{\mathrm{argsh}}
+%\newcommand{\argth}{\mathrm{argth}}
+
+%\newcommand{\ch}{\mathrm{ch}}
+%\newcommand{\coseca}{\mathrm{cos\acute ec}}
+%\newcommand{\cotg}{\mathrm{cotg}}
+%\newcommand{\seca}{\mathrm{s\acute ec}}
+%\newcommand{\sh}{\mathrm{sh}}
+%\newcommand{\tg}{\mathrm{tg}}
+%\renewcommand{\th}{\mathrm{th}}
+%%%%%%%%%%%%
+
+\newcommand{\BB}[1]{\mathbb{#1}}
+\newcommand{\cqfd}{\nolinebreak\hfill\rule{2mm}{2mm}\vspace{2mm}\par}
+\newcommand{\F}{\overrightarrow}
+\newcommand{\bt}{\bigtriangleup}
+\newcommand{\ari}[3]{\stackrel{\scriptstyle #1#2#3}{\hphantom{#1}<\,
+\hphantom{#3}}}
+\newcommand{\ars}[3]{\stackrel{\scriptstyle #1#2#3}{\hphantom{#1}>\,
+\hphantom{#3}}}
+\newcommand{\lig}[3]{\lim_{\ari{#1}{#2}{#3}}}
+\newcommand{\lid}[3]{\lim_{\ars{#1}{#2}{#3}}}
+
+\def\Im{\mathrm{Im}{}}
+\def\Ker{\mathrm{Ker}{}}
+\def\vect{\mathrm{vect}\,}
+
+\newcommand{\dint}[1]{\begin{array}[t]{c}
+\displaystyle{\int\!\!\!\int}\\#1\;\;\end{array}}
+\newcommand{\tint}[1]{\begin{array}[t]{c}
+\displaystyle{\int\!\!\!\int\!\!\!\int}\\#1\;\;\end{array}}
+\newcommand{\dintf}[1]{\begin{array}[t]{c}
+\displaystyle{\int\!\!\!\!\!\int}
+\mbox{\hspace{-13.7pt}}
+\bigcirc\;\\#1\;\;\end{array}}
+
+\newcommand{\fdi}{\arraycolsep0.1pt \renewcommand{\arraystretch}{0.5}
+\begin{array}[t]{c}
+\to\\
+<
+\end{array}
+\arraycolsep5pt \renewcommand{\arraystretch}{1}}
+
+%Définition d'une flèche à droite avec un signe > en dessous.
+\newcommand{\fds}{\arraycolsep0.1pt \renewcommand{\arraystretch}{0.5}
+\begin{array}[t]{c}\to\\
+>
+\end{array}
+\arraycolsep5pt \renewcommand{\arraystretch}{1}}
+
+%\renewcommand{\det}{\mathrm{d\acute et}\,}
+% macro a ameliorer en partant du \det original
+\newcommand{\tr}{\mathrm{tr}\,}
+
+\newcommand{\Sym}{\mathrm{Sym}{}}
+
+\newcommand{\addmod}{\mathbin{\mathrm{mod}}}%???
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{numexo}[chapter]
+\setcounter{numexo}{0}
+\newenvironment{exo}{
+  \par\vspace{1mm}
+  \refstepcounter{numexo}%
+  \noindent{\bfseries \thenumexo}.~~}{}
+\def\thenumexo{\thechapter.\arabic{numexo}}
+\newcounter{numque}
+\setcounter{numque}{0}        
+\newcommand{\que}{\stepcounter{numque}
+\vskip2.5mm\noindent{\bfseries\arabic{numque}}.~}  
+%       debut de question
+
+\def\sque#1{\vskip1mm\noindent\hbox to 5mm{\hfil#1})~}  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                 
+%\usepackage{theorem}
+\newtheorem{thm}{Th\'eor\`eme}[chapter]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemme}
+\newtheorem{cor}[thm]{Corollaire}
+\newtheorem{fact}[thm]{Fait}
+\def\conclusion{\par\textbf{Conclusion}~}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% !TEX root = _global.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  MACROS
+
+
+\def\hs{\hbox to 5.5mm{\hfil}}
+\def\lb{\vskip.3cm\relax{}}
+  
+\def\boitelet#1{\hbox to 8mm{\hfil{#1})\hfil}} 
+         %hbox pour contenir la lettre designant la reponse 
+\def\apreslet{\hskip0.7mm}% espace entre lettre et reponse 
+\def\apresrep{\hskip5mm}% espace entre deux reponses sur meme ligne
+
+\def\rA{\noindent\hs\boitelet{a}\apreslet\relax{}}
+\def\rB{\apresrep\boitelet{b}\apreslet\relax{}}  
+\def\rC{\apresrep\boitelet{c}\apreslet\relax{}}
+\def\rD{\apresrep\boitelet{d}\apreslet\relax{}}
+\def\rE{\apresrep\boitelet{e}\apreslet\relax{}}
+
+% en passant a la ligne
+\def\rrB{\vskip0cm\noindent\hs\boitelet{b}\apreslet\relax{}}   
+\def\rrC{\vskip0cm\noindent\hs\boitelet{c}\apreslet\relax{}}  
+\def\rrD{\vskip0cm\noindent\hs\boitelet{d}\apreslet\relax{}}  
+\def\rrE{\vskip0cm\noindent\hs\boitelet{e}\apreslet\relax{}} 
+
+\usepackage{mathtools} % fixes some bugs in amsmath + provides some useful macros such as \prescript
+\mathtoolsset{mathic} % italic correction for maths.
+\providecommand{\D}{\mathclose{\,\mathrm{d}}}
+\DeclarePairedDelimiter{\intcrochet}{[}{]}
+\DeclarePairedDelimiter{\paren}{(}{)}
+\DeclarePairedDelimiter{\intercc}{[}{]}
+\DeclarePairedDelimiter{\interco}{[}{[}
+\DeclarePairedDelimiter{\interoo}{]}{[}
+\DeclarePairedDelimiter{\interoc}{]}{]}
+\newcommand*{\ens}[1]{\mathbb{#1}} % Ensemble de nombres
+\newcommand*{\var}[1]{\mathbf{#1}} % Vari\'et\'e
+\newcommand*{\alg}[1]{\mathcal{#1}} % Alg\`ebre
+\newcommand*{\RR}{\ens R}%
+\newcommand*{\torus}{\ens T}% Tore ! Torus.
+\newcommand{\sphere}{\var S}%
+\newcommand{\CC}{\ens C}%
+\newcommand{\ZZ}{\ens Z}%
+\newcommand{\QQ}{\ens Q}%
+\newcommand{\NN}{\ens N}%
+
+\PackageInfo{entetes}{Redefining command exp}
+\renewcommand{\exp}[1]{{\textup{e}}^{#1}} % On pr\'ef\`ere e^{} que exp{}
+\PackageInfo{entetes}{Redefining command vec}
+\renewcommand{\vec}[1]{\mathbf{#1}} % D\'esigner un vecteur
+\newcommand{\set}[1]{\left\{#1\right\}} % Un ensemble { }
+\newcommand*{\abs}[1]{\left\vert#1\right\vert} % Valeur absolue.
+\newcommand*{\module}[1]{\left\vert#1\right\vert} % Valeur absolue.
+\newcommand*{\norme}[1]{\left\Vert#1\right\Vert} % norme
+\newcommand*{\ordre}[1]{\left\vert#1\right\vert} % L'ordre d'un \'el\'ement.
+\def\scal(#1,#2){% Produit scalaire.
+  \PackageInfo{entetes}{Obsolete command \string\scal}%
+  \scalprod{#1}{#2}%
+}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand*{\scalprod}[2]{\left\langle #1,#2\right\rangle}
+\let\dual\ast
+
+\newcommand{\Donc}{\DOTSB\;\Longrightarrow\;}
+\newcommand*{\pardef}{\stackrel{\text{\tiny def}}{=}} % Par
+                                % d\'efinition.
+\newcommand{\parnot}{\stackrel{\textup{\tiny not}}{=}}
+\newcommand*{\iffdefn}{\stackrel{\text{def}}{\iff}} % Par d\'efinition.
+\newcommand*{\telque}{\mbox{~t.q.~}} % tel que, dans un ensemble.
+\newcommand*{\Defn}[1]{\emph{#1}} %
+\newcommand*{\tensorproduct}{\otimes}
+\newcommand*{\tensor}{\tensorproduct\PackageWarning{You are using
+    deprecated \string\tensor command which conflicts with the /tensor/ package.}}
+\newcommand*{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand*{\ddx}[1][x]{\frac{\D}{\D #1}}
+%\makeatletter %% \limite[condition]x x_0
+\makeatletter
+\newcommand*{\limite}[3][]{\lim_{\substack{#2\rightarrow#3\\#1}}}
+\makeatother
+\def\alldisplaystyle{\everymath{\displaystyle}}
+\def\lnot{\neg}
+\def\ldonc{\rightarrow}
+\def\lssi{\leftrightarrow}
+\def\theenumi{\alph{enumi}}
+
+\newcommand{\unitvector}[1]{\vec{e_{#1}}}
+
+\def\UseNoChapterNumbers{%  %% When writing a temporary chapter during the year (nr)
+  \renewcommand\thechapter{}
+  \renewcommand\thenumexo{\arabic{numexo}}}
+\usepackage{preview}
+%\PreviewEnvironment{exo}
+\PreviewMacro{\thenumexo}
+\ifPreview 
+\PassOptionsToPackage{hypertex}{hyperref}
+\fi
+\usepackage{hyperref}
+\makeatletter
+\ifx\c@Hfootnote\undefined \newcounter{Hfootnote}\fi
+\makeatother
+% \PreviewMacro{\item}
+
+
+%%% Local Variables:
+%%% TeX-master: t
+%%% End:
