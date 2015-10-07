@@ -1486,6 +1486,20 @@ cercle d'équation $x^2+y^2+2x-4y=0$ et donner l'angle de ces tangentes.
 Déterminer les équations des cercles tangents aux droites $A$ et $B$ 
 d'équations $x-2y+2=0$ et $2x-y+1=0$, et dont le centre se trouve sur la 
 droite d'équation $5x-y-11=0$.
+\begin{correction}
+  Notons que si un cercle est tangent à une droite, alors la distance entre le centre du cercle et la droite est exactement le rayon du cercle.
+
+  Soit $(a,b)$ le centre du cercle. La distance entre ce point et chacune des deux droites tangentes doit donc être la même (et égale au rayon)~:
+  \begin{equation*}
+    \frac{\abs{a - 2b + 2}}{\sqrt 5} = \frac{\abs{2a - b + 1}}{\sqrt 5}
+  \end{equation*}
+  Or le centre se trouve sur une droite donnée, donc on sait $5a - b - 11 = 0$.
+
+  Ces équations fournissent deux solutions pour $(a,b)$, à savoir $(2,-1)$ et $(3,4)$. Dans le premier cas le rayon est $\frac6{\sqrt 5}$, dans le second le rayon est $\frac3{\sqrt 5}$. Il y a donc deux cercles solution :
+  \begin{equation*}
+    {(x-2)}^{2} + {(y + 1)}^{2} = \frac{36}{5}\text{ et }    {(x-3)}^{2} + {(y - 4)}^{2} = \frac{9}{5}
+  \end{equation*}
+\end{correction}
 \end{exo}
 
 %%EXE IV(géométrie vectorielle et analytique).7
