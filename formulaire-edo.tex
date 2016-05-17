@@ -1,0 +1,169 @@
+\documentclass[french,oneside,twocolumn,article]{memoir} % {article}% CHERCHER LES FIXMES (occur "FIXME")
+\usepackage[utf8]{inputenc} % Permet d'écrire avec les accents
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[margin=1cm]{geometry}
+\usepackage{amsthm}
+\usepackage[light,frenchstyle]{kpfonts}
+\usepackage{xfrac}
+\usepackage{mathtools,booktabs}
+\usepackage{xargs,xstring}
+\usepackage{venndiagram}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts,calc,enumitem}
+\newcommand*{\ddx}[1][x]{\frac{\D}{\D #1}}
+\newcommand*{\Defnemph}{\emph}
+\newcommand*{\pardef}{\coloneqq} % Par d\'efinition.
+\newcommand{\set}[1]{\left\{#1\right\}} % Un ensemble { }
+\newcommand*{\abs}[1]{\left\vert#1\right\vert} % Valeur absolue.
+\newcommand*{\module}[1]{\left\vert#1\right\vert} % Valeur absolue.
+\newcommand*{\norme}[1]{\left\Vert#1\right\Vert} % norme
+\newcommand*{\ordre}[1]{\left\vert#1\right\vert} % L'ordre d'un \'el\'ement.
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand*{\scalprod}[2]{\left\langle #1,#2\right\rangle}
+\newcommand*{\vecprod}{\times}
+\newcommand*{\telque}{\mbox{~t.q.~}} % tel que, dans un ensemble.
+\newcommand*{\ens}[1]{\mathbb{#1}} % Ensemble de nombres
+\newcommand*{\var}[1]{\mathbf{#1}} % Vari\'et\'e
+\newcommand*{\alg}[1]{\mathcal{#1}} % Alg\`ebre
+\newcommand*{\RR}{\ens R}%
+\newcommand*{\TT}{\ens T}% Tore ! Torus.
+\newcommand{\sphere}{\var S}% Sph\`ere.
+\newcommand{\CC}{\ens C}%
+\newcommand{\ZZ}{\ens Z}%
+\newcommand{\QQ}{\ens Q}%
+\newcommand{\NN}{\ens N}%
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Id}{Id}
+\DeclarePairedDelimiter{\intercc}{[}{]}
+\DeclarePairedDelimiter{\interco}{[}{[}
+\DeclarePairedDelimiter{\interoo}{]}{[}
+\DeclarePairedDelimiter{\interoc}{]}{]}
+\newcommand*{\limite}[3][]{\lim_{\substack{#2\rightarrow#3\\#1}}}
+\newcommand*{\petito}[1]{\mathrm{o}(#1)}
+\DeclarePairedDelimiter{\paren}{(}{)}
+\DeclarePairedDelimiter{\braces}{\{}{\}}
+\DeclarePairedDelimiter{\sqbracket}{[}{]}
+\DeclareMathOperator{\pgcd}{pgcd}
+\DeclareMathOperator{\ppcm}{ppcm}
+
+\setlist{label=$\ast$} % from enumitem
+
+% \settypeblocksize{*}{450pt}{1.5}
+% \setlrmargins{*}{*}{2}
+% \setlength{\marginparwidth}{\foremargin-2em}
+% \setulmargins{*}{*}{1.3}
+% \setlength{\headheight}{15.1pt}
+% \checkandfixthelayout% apply the settings.
+\def\methode{\paragraph{Méthode}}
+\begin{document}
+\begin{center}
+  Équations différentielles. Math-F-112\\
+  Aide-mémoire ;  2014--2015
+\end{center}
+
+\paragraph{Remarque}
+Si une équation différentielle est demandée à l'examen, la ou les méthodes utiles présentes sur le présent document seront fournies sur la feuille d'examen.
+
+\chapter{Équations à variables séparées}
+\begin{equation*}
+  g(y) y' = f(x).
+\end{equation*}
+
+\methode{} Intégrer chaque membre : $\int g(y)\D y = \int f(x) \D x$.
+
+\chapter{Équation type homogène}
+\begin{equation*}
+  y' = f(x,y) \text{ où $f(tx,ty) = f(x,y)$ pour tout $t \in \RR$.}
+\end{equation*}
+
+\methode{} Changement de fonction inconnue : \(y(x) = x u(x)\).
+
+\chapter{Équations linéaires premier ordre}
+\begin{equation*}
+  q(x) y' +  p(x) y = f(x) \tag{EL}.
+\end{equation*}
+
+\begin{enumerate}
+\item Résoudre l'équation homogène associée (solution générale $y_{SGEH}$).
+\item Trouver une solution particulière de l'équation de départ ($y_{SPEL}$).
+\item Solution générale : $y(x) = y_{SGEH}(x) + y_{SPEL}(x)$.
+\end{enumerate}
+\chapter{Équations linéaires second ordre homogène}
+\label{second-ordre-lin-homogene}
+\begin{equation*}
+  a y'' + by' + cy = 0 \qquad a,b,c\in \RR
+\end{equation*}
+
+\methode{} Selon les racines du polynômes caractéristique :
+\begin{itemize}
+\item Deux racines $\lambda_{1}$ et $\lambda_{2}$
+  \begin{equation*}
+    y(x) = C_{1} \exp{\paren*{\lambda_{1}x}} + C_{2} \exp{\paren*{\lambda_{2}x}}
+  \end{equation*}
+\item Une racine réelle double, $\lambda$
+  \begin{equation*}
+    y(x) = (C_{1} + C_{2} x) \exp{\paren*{\lambda x}}
+  \end{equation*}
+\item Aucune racine réelle, on définit \(\rho = \frac{-b}{2a}\) et \(\omega = \frac{1}{2a}\sqrt{4ac-b^{2}}\)
+  \begin{equation*}
+    y(x) = (C_{1} \cos(\omega x) + C_{2}\sin(\omega x)) \exp{\paren*{\rho x}}
+  \end{equation*}
+\end{itemize}
+où $C_{1}$ et $C_{2}$ sont les constantes d'intégration.
+\chapter{Équations linéaires second ordre non-homogène}
+\begin{equation*}
+  a y'' + by' + cy = f(x)
+\end{equation*}
+\begin{enumerate}
+\item Résoudre l'équation linéaire homogène associée (solution générale $y_{SGEH}$);
+\item Solution particulière $y_{SPEL}$ (cf. infra)
+\item Solution générale : $y(x) = y_{SGEH}(x) + y_{SPEL}(x)$
+\end{enumerate}
+
+\section{Solution particulière -- Divination}
+Selon la forme du second membre $f$, on essaye la forme donnée ci-dessous comme candidat \og solution particulière\fg{} :
+\begin{itemize}
+\item Si $f$ est un polynôme de degré $n$, essayer un polynôme de degré:
+  \begin{itemize}
+  \item $n$ si $c \neq 0$
+  \item $n+1$ si $c = 0$ et $b \neq 0$
+  \item $n+2$ si $b = c = 0$.
+  \end{itemize}
+\item Si $f(x) = l \textup{e}^{kx}$, essayer :
+  \begin{itemize}
+  \item $s \textup{e}^{kx}$ si $k$ n'est pas racine du polynôme caractéristique ;
+  \item $s x \textup{e}^{kx}$ si $k$ est racine simple ;
+  \item $s x^{2} \textup{e}^{kx}$ si $k$ est racine double.
+  \end{itemize}
+\item Si $f(x) = (l \cos(\tau x) + m \sin (\tau x)) \exp(k x)$, essayer
+  \begin{itemize}
+  \item $(s \cos(\tau x) + t \sin (\tau x)) \exp(k x)$ si $k + i \tau \in \CC$ n'est pas racine de l'équation caractéristique
+
+    \paragraph{Remarque}
+    Voici une formulation équivalente, sans nombres complexes : le polynôme caractéristique n'a pas de racine réelle, et $k \neq \rho$ ou $\tau \neq \omega$ ; où $\rho$ et $\omega$ sont les nombres définis dans la méthode du point \ref{second-ordre-lin-homogene}
+    
+  \item $(s \cos(\tau x) + t \sin (\tau x)) x \exp(k x)$ si il l'est.
+  \end{itemize}
+\end{itemize}
+où $k,l,m,\tau$ désignent des constantes données dans l'équation, et $s,t$ sont des constantes à déterminer.
+
+Si $f$ est une somme de plusieurs termes de la forme ci-dessus, on détermine un candidat pour chaque terme, et on cherche une solution qui sera la somme des candidats.
+
+\section{Solution particulière -- Variation des constantes}
+Si $C_{1} y_{1}(x) + C_{2} y_{2}(x)$ est la solution générale de l'équation homogène associée, on cherche une solution particulière sous la forme
+\begin{equation*}
+  y(x) = u(x) y_{1}(x) + v(x) y_{2}(x)
+\end{equation*}
+vérifiant de plus
+\begin{equation*}
+ 0 = u'(x) y_{1}(x) + v'(x) y_{2}(x)
+\end{equation*}
+\end{document}
+
+
+
+%%% Local Variables:
+%%% TeX-master: t
+%%% End:
